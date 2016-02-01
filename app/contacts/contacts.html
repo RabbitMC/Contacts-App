@@ -1,4 +1,6 @@
 <div class="row" ng-controller="ContactsCtrl">
+    <div class="large-10 columns">
+        <div data-alert ng-show="msg" class="alert-box">{{msg}}</div>
 
     <form ng-submit="addFormSubmit()" ng-show="addFormShow">
         <h3>Add Contact</h3>
@@ -70,29 +72,29 @@
         </div>
     </form>
 
-    <div class="large-10 columns">
-        <h3>Your Contacts</h3>
-        <table>
-            <thead>
-            <tr>
-                <th width="200px">Name</th>
-                <th width="200px">Company</th>
-                <th width="25%">Email</th>
-                <th width="25%">Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="contact in contacts">
-                <td><a href="#">{{contact.name}}</a></td>
-                <td>{{contact.company}}</td>
-                <td>{{contact.email}}</td>
-                <td><a class="button tiny" ng-click="showEditForm(contact)">Edit</a>
-                    <a class="button tiny alert" ng-click="removeContact(contact)">Delete</a></td>
-            </tr>
-            </tbody>
-        </table>
+    <h3>Your Contacts</h3>
+    <table>
+        <thead>
+        <tr>
+            <th width="200px">Name</th>
+            <th width="200px">Company</th>
+            <th width="25%">Email</th>
+            <th width="25%">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="contact in contacts">
+            <td><a href="#">{{contact.name}}</a></td>
+            <td>{{contact.company}}</td>
+            <td>{{contact.email}}</td>
+            <td><a class="button tiny" ng-click="showEditForm(contact)">Edit</a>
+                <a class="button tiny alert" ng-click="removeContact(contact)">Delete</a></td>
+        </tr>
+        </tbody>
+    </table>
     </div>
     <div class="small-12 large-2 columns">
-        <a class="button large" ng-click="showAddForm()">+</a>
+        <a class="button large" ng-click="showAddForm()" ng-hide="addFormShow">+</a>
+        <a class="button large" ng-click="hide()" ng-show="addFormShow">-</a>
     </div>
 </div>
