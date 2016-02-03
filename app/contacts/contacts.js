@@ -41,6 +41,14 @@ angular.module('myContacts.contacts', ['ngRoute', 'firebase'])
         $scope.zipcode = contact.address[0].zipcode;
     };
 
+    $scope.removeContact = function(contact) {
+        console.log('Removing Contact');
+
+        $scope.contacts.$remove(contact);
+
+        $scope.msg = 'Contact removed';
+    };
+
     // hides "add form"
     $scope.hide = function() {
         $scope.addFormShow = false;
