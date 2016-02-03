@@ -24,6 +24,23 @@ angular.module('myContacts.contacts', ['ngRoute', 'firebase'])
         $scope.addFormShow = true;
     };
 
+    // shows "edit form"
+    $scope.showEditForm = function(contact) {
+        $scope.editFormShow = true;
+
+        $scope.id = contact.$id;
+        $scope.name = contact.name;
+        $scope.company = contact.company;
+        $scope.email = contact.email;
+        $scope.work_phone = contact.phones[0].work;
+        $scope.mobile_phone = contact.phones[0].mobile;
+        $scope.home_phone = contact.phones[0].home;
+        $scope.street_address = contact.address[0].street_address;
+        $scope.city = contact.address[0].city;
+        $scope.state = contact.address[0].state;
+        $scope.zipcode = contact.address[0].zipcode;
+    };
+
     // hides "add form"
     $scope.hide = function() {
         $scope.addFormShow = false;
@@ -77,6 +94,37 @@ angular.module('myContacts.contacts', ['ngRoute', 'firebase'])
 
             // send message
             $scope.msg = "Contact added";
+        });
+    };
+
+    $scope.editFormSubmit = function() {
+        console.log('Updating Contact ... ');
+
+        // Get ID
+        var id = $scope.id;
+
+        // get record
+        var record = $scope.contacts.$getRecord(id);
+
+        // Assign the values
+
+        record.name = $scope.name;
+        record.email = $scope.email;
+        record.company = $scope.company;
+        record.phones[0].work = $scope.work_phone;
+        record.phones[0].home = $scope.home_phone;
+        record.phones[0].mobile = $scope.mobile_phone;
+        record.address[0].street_address = $scope.street_address;
+        record.address[0].city = $scope.city;
+        record.address[0].state = $scope.state;
+        record.address[0].zipcode = $scope.zipcode;
+
+        // Save record
+        $scope.contacts.$save(record).then(function(ref) {
+            console.log(ref.key);
+            clearFields();
+            $scope.editFormShow = false;
+            $scope.msg = "Contact updated";
         });
     };
 
